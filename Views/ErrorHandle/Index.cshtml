@@ -1,0 +1,20 @@
+﻿
+
+@{
+    ViewBag.Title = "Error Handle ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+  
+
+    <div style="font-family:Arial">
+        @using (@Html.BeginForm())
+        {
+
+            @Html.TextArea("comments");
+
+
+            <input type="submit" value="Submit" />
+        }
+
+    </div>
+

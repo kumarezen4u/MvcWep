@@ -1,0 +1,110 @@
+﻿@model WebMvc.Areas.Employee.Models.EmiModel
+@{
+    ViewBag.Title = "Emi";
+    Layout = "~/Areas/Employee/Views/Shared/_Emplayout.cshtml";
+    bool flag = false;
+    if (Model != null)
+    {
+        if (Model.EmiList != null && Model.EmiList.Count > 0)
+        {
+            flag = true;
+        }
+    }
+}
+
+<div>
+
+    <div class="row" >
+        <div class="col-md-8 rowBorder">
+            @Html.Partial("_PageTitle", "Emi Calculator")
+            @using (Html.BeginForm("Emi", "EMI", FormMethod.Post))
+            {
+                <div class="row rowPadding">
+                    <div class="col-sm-4">Principal Amount </div>
+                    <div class="col-sm-8">@Html.TextBoxFor(m => m.PrincipalAmount)</div>
+                </div>
+                <div class="row rowPadding">
+                    <div class="col-sm-4">Interest rate </div>
+                    <div class="col-sm-8">@Html.TextBoxFor(m => m.InterestRate)</div>
+                </div>
+                <div class="row rowPadding">
+                    <div class="col-sm-4">Tenure </div>
+                    <div class="col-sm-8">@Html.TextBoxFor(m => m.tenure)</div>
+                </div>
+                <div class="row rowPadding">
+                    <div class="col-sm-4">Emi Date </div>
+                    <div class="col-sm-8">@Html.TextBoxFor(m => m.EmiDate)</div>
+                </div>
+
+                <div class="row rowPadding">
+                    <div class="col-sm-6"> </div>
+                    <div class="col-sm-6"> <input type="submit" value="Submit" /></div>
+                </div>
+            }
+        </div>
+        <div class="col-md-4" style="border: 1px solid blue; ">
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-md-8 rowBorder" >
+            @if (flag)
+            {
+                @Html.Partial("_PageTitle", "Emi Table")
+                <table cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <th>Principal Amount</th>
+                        <th>Interest Amount</th>
+                        <th>Emi Date</th>
+                    </tr>
+                    @foreach (var emi in Model.EmiList)
+                    {
+                        <tr>
+                            <td>@emi.PrincipalAmount</td>
+                            <td>@emi.InterestAmount</td>
+                            <td>@emi.EmiDate</td>
+
+                        </tr>
+                    }
+
+                </table>
+            }
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    </div>
+
+<style type="text/css">
+    .rowPadding {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .body {
+        font-family: Arial;
+        font-size: 10pt;
+    }
+
+    .table {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+        background-color: #fff;
+    }
+
+    table th {
+        background-color: #B8DBFD;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .table th, table td {
+        padding: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .table, table table td {
+        border: 0px solid# ccc;
+    }
+    .rowBorder {
+        border: 1px solid blue;
+    }
+    
+    </style>

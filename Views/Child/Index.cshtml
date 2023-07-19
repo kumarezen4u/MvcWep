@@ -1,0 +1,58 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.Title = "Index";
+}
+
+<h4>Html.Action() – Invokes the specified child action method and returns the result as an HTML string.</h4>
+
+@Html.Action("RenderList", new { renderTypes = new List<string>() { "Html.Action1", "Html.RenderAction2", "Html.Partial1", "Html.RenderPartial1" } })
+@Html.Action("MyRendering", "Child")
+<br />
+@Html.Action("MyReturning", "Child", new { id = 4 })
+
+
+<h4>Html.RenderAction() - Invokes the specified child action method and renders the result inline in the parent view. <br />This method is more efficient if the action returns a large amount of HTML.</h4>
+<h4>  first difference is syntax </h4>
+@{
+    Html.RenderAction("RenderList", new { renderTypes = new List<string>() { "Html.Action", "Html.RenderAction", "Html.Partial", "Html.RenderPartial" } });
+
+    Html.RenderAction("MyRendering", "Child");
+    <br />
+    Html.RenderAction("MyReturning", "child", new { id = 2 });
+}
+
+<h3>Both of these helper methods are used for rendering partial views </h3>
+<h4>
+    Html.Partial() – Partial view is a reusable view (like user control) <br /> Which can be embedded inside other view
+    <br />Example : For every page you would like to use the left menu , header & footer control so you can go and create partial view
+    <br />Simple to use and no need to create any action
+</h4>
+
+@Html.Partial("_PageTitle", "My Partial - Strip ")
+
+@{
+    string StringReturn = @Html.Partial("_PageTitle", "My Partial - Strip123 ").ToString();
+}
+
+<h4>
+    This method result can be stored in a variable , since it returns string type value
+    <br /> @StringReturn;
+</h4>
+
+@Html.Partial("_myRender", new string[] { "Html.Action", "Html.RenderAction", "Html.Partial", "Html.RenderPartial" })
+
+<h4>
+    Html.RenderPartial()
+</h4>
+<h4>  first difference is syntax </h4>
+@{ 
+    Html.RenderPartial("_PageTitle", "Render Partial strip");
+}
+<br />
+<h4>  This method returns void , this method directly return to the Http response  </h4>
+
+
+@{
+           Html.RenderPartial("_myRender", new string[] { "Html.Action11", "Html.RenderAction22", "Html.Partial33", "Html.RenderPartial44" });
+}

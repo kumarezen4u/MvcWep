@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PracticeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ExpCategory">
+          <Key>
+            <PropertyRef Name="ExpenseCategoryId" />
+          </Key>
+          <Property Name="ExpenseCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Archive" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblEmployee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Department" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExpCategory1">
+          <Key>
+            <PropertyRef Name="ExpenseCategoryId" />
+          </Key>
+          <Property Name="ExpenseCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Archive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ExpSubCategory">
+          <Key>
+            <PropertyRef Name="ExpenseSubCategoryId" />
+          </Key>
+          <Property Name="ExpenseSubCategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExpenseCategoryId" Type="int" Nullable="false" />
+          <Property Name="SubCategoryName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Archive" Type="bit" />
+        </EntityType>
+        <Association Name="FK__ExpSubCat__Expen__318258D2">
+          <End Role="ExpCategory1" Type="Self.ExpCategory1" Multiplicity="1" />
+          <End Role="ExpSubCategory" Type="Self.ExpSubCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpCategory1">
+              <PropertyRef Name="ExpenseCategoryId" />
+            </Principal>
+            <Dependent Role="ExpSubCategory">
+              <PropertyRef Name="ExpenseCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExpSubCat__Expen__32767D0B">
+          <End Role="ExpCategory1" Type="Self.ExpCategory1" Multiplicity="1" />
+          <End Role="ExpSubCategory" Type="Self.ExpSubCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpCategory1">
+              <PropertyRef Name="ExpenseCategoryId" />
+            </Principal>
+            <Dependent Role="ExpSubCategory">
+              <PropertyRef Name="ExpenseCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PracticeModelStoreContainer">
+          <EntitySet Name="ExpCategory" EntityType="Self.ExpCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblEmployee" EntityType="Self.tblEmployee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExpCategory1" EntityType="Self.ExpCategory1" Schema="Expense" Table="ExpCategory" store:Type="Tables" />
+          <EntitySet Name="ExpSubCategory" EntityType="Self.ExpSubCategory" Schema="Expense" store:Type="Tables" />
+          <AssociationSet Name="FK__ExpSubCat__Expen__318258D2" Association="Self.FK__ExpSubCat__Expen__318258D2">
+            <End Role="ExpCategory1" EntitySet="ExpCategory1" />
+            <End Role="ExpSubCategory" EntitySet="ExpSubCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExpSubCat__Expen__32767D0B" Association="Self.FK__ExpSubCat__Expen__32767D0B">
+            <End Role="ExpCategory1" EntitySet="ExpCategory1" />
+            <End Role="ExpSubCategory" EntitySet="ExpSubCategory" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PracticeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblEmployee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Department" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="PracticeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblEmployees" EntityType="Self.tblEmployee" />
+          <EntitySet Name="ExpCategories" EntityType="PracticeModel.ExpCategory" />
+          <EntitySet Name="ExpSubCategories" EntityType="PracticeModel.ExpSubCategory" />
+          <AssociationSet Name="FK__ExpSubCat__Expen__318258D2" Association="PracticeModel.FK__ExpSubCat__Expen__318258D2">
+            <End Role="ExpCategory" EntitySet="ExpCategories" />
+            <End Role="ExpSubCategory" EntitySet="ExpSubCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExpSubCat__Expen__32767D0B" Association="PracticeModel.FK__ExpSubCat__Expen__32767D0B">
+            <End Role="ExpCategory" EntitySet="ExpCategories" />
+            <End Role="ExpSubCategory" EntitySet="ExpSubCategories" />
+          </AssociationSet>
+          <EntitySet Name="ExpCategory1" EntityType="PracticeModel.ExpCategory1" />
+        </EntityContainer>
+        <EntityType Name="ExpCategory">
+          <Key>
+            <PropertyRef Name="ExpenseCategoryId" />
+          </Key>
+          <Property Name="ExpenseCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Archive" Type="Boolean" />
+          <NavigationProperty Name="ExpSubCategories" Relationship="PracticeModel.FK__ExpSubCat__Expen__318258D2" FromRole="ExpCategory" ToRole="ExpSubCategory" />
+          <NavigationProperty Name="ExpSubCategories1" Relationship="PracticeModel.FK__ExpSubCat__Expen__32767D0B" FromRole="ExpCategory" ToRole="ExpSubCategory" />
+        </EntityType>
+        <EntityType Name="ExpSubCategory">
+          <Key>
+            <PropertyRef Name="ExpenseSubCategoryId" />
+          </Key>
+          <Property Name="ExpenseSubCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExpenseCategoryId" Type="Int32" Nullable="false" />
+          <Property Name="SubCategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Archive" Type="Boolean" />
+          <NavigationProperty Name="ExpCategory" Relationship="PracticeModel.FK__ExpSubCat__Expen__318258D2" FromRole="ExpSubCategory" ToRole="ExpCategory" />
+          <NavigationProperty Name="ExpCategory1" Relationship="PracticeModel.FK__ExpSubCat__Expen__32767D0B" FromRole="ExpSubCategory" ToRole="ExpCategory" />
+        </EntityType>
+        <Association Name="FK__ExpSubCat__Expen__318258D2">
+          <End Type="PracticeModel.ExpCategory" Role="ExpCategory" Multiplicity="1" />
+          <End Type="PracticeModel.ExpSubCategory" Role="ExpSubCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpCategory">
+              <PropertyRef Name="ExpenseCategoryId" />
+            </Principal>
+            <Dependent Role="ExpSubCategory">
+              <PropertyRef Name="ExpenseCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExpSubCat__Expen__32767D0B">
+          <End Type="PracticeModel.ExpCategory" Role="ExpCategory" Multiplicity="1" />
+          <End Type="PracticeModel.ExpSubCategory" Role="ExpSubCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpCategory">
+              <PropertyRef Name="ExpenseCategoryId" />
+            </Principal>
+            <Dependent Role="ExpSubCategory">
+              <PropertyRef Name="ExpenseCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ExpCategory1">
+          <Key>
+            <PropertyRef Name="ExpenseCategoryId" />
+          </Key>
+          <Property Name="ExpenseCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Archive" Type="Boolean" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PracticeModelStoreContainer" CdmEntityContainer="PracticeEntities">
+          <EntitySetMapping Name="tblEmployees">
+            <EntityTypeMapping TypeName="PracticeModel.tblEmployee">
+              <MappingFragment StoreEntitySet="tblEmployee">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExpCategories">
+            <EntityTypeMapping TypeName="PracticeModel.ExpCategory">
+              <MappingFragment StoreEntitySet="ExpCategory1">
+                <ScalarProperty Name="Archive" ColumnName="Archive" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="ExpenseCategoryId" ColumnName="ExpenseCategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExpSubCategories">
+            <EntityTypeMapping TypeName="PracticeModel.ExpSubCategory">
+              <MappingFragment StoreEntitySet="ExpSubCategory">
+                <ScalarProperty Name="Archive" ColumnName="Archive" />
+                <ScalarProperty Name="SubCategoryName" ColumnName="SubCategoryName" />
+                <ScalarProperty Name="ExpenseCategoryId" ColumnName="ExpenseCategoryId" />
+                <ScalarProperty Name="ExpenseSubCategoryId" ColumnName="ExpenseSubCategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExpCategory1">
+            <EntityTypeMapping TypeName="PracticeModel.ExpCategory1">
+              <MappingFragment StoreEntitySet="ExpCategory">
+                <ScalarProperty Name="Archive" ColumnName="Archive" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="ExpenseCategoryId" ColumnName="ExpenseCategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

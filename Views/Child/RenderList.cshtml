@@ -1,0 +1,12 @@
+﻿@model List<string>
+@{
+    Layout = null;
+    ViewBag.Title = "RenderList";
+}
+<ul>
+    @foreach (string server in Model)
+    {
+    <li>@server</li>
+    }
+</ul>
+
